@@ -1,0 +1,23 @@
+{
+  "name": "mobilecctv",
+  "version": "1.0.0",
+  "description": "A cctv web app which can be used using phones instead of cameras(idea).",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "keywords": [
+    "express",
+    "web",
+    "app",
+    "web-app",
+    "cctv",
+    "mobile"
+  ],
+  "author": "Karuvathil Akshay Vijaykumar",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
