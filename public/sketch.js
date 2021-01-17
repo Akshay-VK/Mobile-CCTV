@@ -26,9 +26,9 @@ function draw() {
 		for(let y = 0; y < height; y++) {
 			var index = 4*(y*width+x);
 			if(index == 0) {
-				url = url + '?arr='+pixels[index];
+				url = url + '?arr='+pixels[index]+'&arr='+pixels[index+1]+'&arr='+pixels[index+2]+'&arr='+pixels[index+3];
 			}else{
-				url = url + '&arr='+pixels[index];
+				url = url + '&arr='+pixels[index]+'&arr='+pixels[index+1]+'&arr='+pixels[index+2]+'&arr='+pixels[index+3];
 			}
 		}
 	}
