@@ -1,6 +1,7 @@
 var capture;
 let ID;
 let fc = 0;
+const socket = io('http://localhost:3000');
 
 function setup() {
 	createCanvas(500,500);
@@ -21,21 +22,23 @@ function draw() {
 	scale(0.1);
 	loadPixels();
 
-	let url = '/set';
-	for(let x = 0; x < width; x++) {
-		for(let y = 0; y < height; y++) {
-			var index = 4*(y*width+x);
-			if(index == 0) {
-				url = url + '?arr='+pixels[index]+'&arr='+pixels[index+1]+'&arr='+pixels[index+2]+'&arr='+pixels[index+3];
-			}else{
-				url = url + '&arr='+pixels[index]+'&arr='+pixels[index+1]+'&arr='+pixels[index+2]+'&arr='+pixels[index+3];
-			}
-		}
-	}
+	// let url = '/set';
+	// for(let x = 0; x < width; x++) {
+	// 	for(let y = 0; y < height; y++) {
+	// 		var index = 4*(y*width+x);
+	// 		if(index == 0) {
+	// 			url = url + '?arr='+pixels[index]+'&arr='+pixels[index+1]+'&arr='+pixels[index+2]+'&arr='+pixels[index+3];
+	// 		}else{
+	// 			url = url + '&arr='+pixels[index]+'&arr='+pixels[index+1]+'&arr='+pixels[index+2]+'&arr='+pixels[index+3];
+	// 		}
+	// 	}	
+	//}
 	if(fc % 30 == 0){
-		loadJSON(url, (data) => {
-			console.log('SUCCESS');
-		});
+		// loadJSON(url, (data) => {
+		// 	console.log('SUCCESS');
+		// });
+		socket.emit('feed',{feed:pixels},ID);
+
 	}
 
 	updatePixels();
