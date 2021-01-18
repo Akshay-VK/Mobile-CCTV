@@ -4,7 +4,9 @@ const port = process.env.port || 3000;
 
 let videos = [];
 
-app.use(express.static('public'));
+app.use('/',express.static('public'));
+//app.use('/serve',express.static('serve'));
+
 
 const server = app.listen(port , () => {
 	console.log("Server started at port "+port);
@@ -25,6 +27,17 @@ io.on('connection',(socket) => {
 app.get('/new',(req,res) => {
 	res.send({id:counter});
 	counter++;
+});
+
+
+app.get('/server-request',(req,res) => {
+	res.send({videos:videos});
+	console.log("PACKAGE SENT")
+});
+
+
+app.get('/serve',(req,res) => {
+	res.sendFile(`${__dirname}/serve/server.html`);	
 });
 
 // app.get('/set',(req,res) => {
