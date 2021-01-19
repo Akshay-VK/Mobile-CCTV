@@ -13,12 +13,8 @@ app.get('/new',(req,res) => {
 	counter++;
 });
 
-app.get('/set',(req,res) => {
-	let videofeed = req.query.arr;
-	for(let i = 0;i < videofeed.length; i++) {
-		videofeed[i] = parseInt(videofeed[i]);
-	}
-	videos.push(videofeed);
+app.get('/set/:id/:data',(req,res) => {
+	videos[parseInt(req.params.id)] = (req.params.data);
 	console.log(videos);
 	res.send({"SUCCESS":"SUCCESS"});
 });

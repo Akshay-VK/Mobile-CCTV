@@ -40,6 +40,10 @@
 
 // 	updatePixels();
 // }
+let id = 0;
+fetch('/new')
+.then(data=>{return data.json()})
+.then(res => {id = res.id});
 
 Webcam.set({
 	width:320,
@@ -47,5 +51,17 @@ Webcam.set({
 	image_format: 'jpeg',
 	jpeg_quality: 80
 });
-var divv = document.getElementById('my_cam');
 Webcam.attach( '#my_cam');
+
+setInterval(() => {
+	Webcam.snap( function(data_uri) {
+		// display results in page
+		// document.getElementById('results').innerHTML = 
+		// '<img src="'+data_uri+'"/>';
+		//console.log(`${data_uri}`);
+		let url = `/set/${id}/${data_uri.toString()}`;
+		fetch(url)
+		.then(data=>{return data.json})
+		.then(res=>{console.log(res)});
+	});
+},1000);
