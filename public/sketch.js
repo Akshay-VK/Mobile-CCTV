@@ -1,6 +1,10 @@
 let ID;
+let socket;
 
 function setup() {
+
+	socket = io('http://localhost:3000');
+
 	loadJSON('/new',(data) => {
 		ID = parseInt(data.id);
 	});
@@ -14,20 +18,9 @@ function setup() {
 	Webcam.attach( '#my_cam');
 }
 
-function draw() {
-	
-}
-
-
-// setInterval(() => {
-// 	Webcam.snap( function(data_uri) {
-// 		// display results in page
-// 		// document.getElementById('results').innerHTML = 
-// 		// '<img src="'+data_uri+'"/>';
-// 		//console.log(`${data_uri}`);
-// 		let url = `/set/${ID}/${data_uri.toString()}`;
-// 		fetch(url)
-// 		.then(data=>{return data.json})
-// 		.then(res=>{console.log(res)});
-// 	});
-// },1000);
+setInterval(() => {
+	Webcam.snap(function(data_uri) {
+		
+		socket.emit('set',{id:ID,feed:data_uri});
+	})
+},3000);

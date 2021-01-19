@@ -1,10 +1,20 @@
 const express = require('express');
 const app = express();
 const port = process.env.port || 3000;
+const socket = require('socket.io');
+
+
+let server = app.listen(port , () => {
+	console.log("Server started at port "+port);
+});
+
+let io = socket(server);
 
 let videos = [];
 
-app.use(express.static('public'));
+app.use('/',express.static('public'));
+app.use('/serve',express.static('server'));
+
 
 let counter = 0;
 
@@ -19,6 +29,17 @@ app.get('/set/:id/:data',(req,res) => {
 	res.send({"SUCCESS":"SUCCESS"});
 });
 
-app.listen(port , () => {
-	console.log("Server started at port "+port);
+
+setInterval(()=>{
+	io.emit('service',{data:videos});
+},3000);
+
+io.on('connection',(socket) => {
+	socket.on('set',(data) => {
+		let id = data.id;
+		videos[id] = data.feed;
+		//console.log(videos)
+	});
+	
+	
 });
